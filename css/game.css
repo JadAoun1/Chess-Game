@@ -22,13 +22,6 @@ body {
     text-align: center;
 }
 
-header h1 {
-    font-size: 6rem;
-    color: transparent;
-    -webkit-text-stroke: 1px rgb(255, 255, 255);
-    -webkit-text-fill-color: transparent;
-    margin: -50px 0 50px;
-}
 
 /* Game wrapper with retro glow */
 .game-wrapper {
@@ -51,25 +44,23 @@ header h1 {
 /* Chessboard styles */
 .chessboard {
     display: grid;
-    grid-template-columns: repeat(8, 50px); /* 8 columns */
-    grid-template-rows: repeat(8, 50px); /* 8 rows */
-    gap: 0; /* No spacing between squares */
-    position: relative;
+    grid-template-columns: repeat(8, 80px); /* Increase cell size */
+    grid-template-rows: repeat(8, 80px); /* Increase cell size */
+    gap: 0;
     border: 4px solid white;
-    box-shadow: 
-        0 5px 0 #222, /* Depth shadow on bottom */
-        0 10px 5px rgba(0, 0, 0, 0.5); /* Larger blurred shadow for realistic depth */
-    transform: translateY(10px); /* Slightly raised board */
+    box-shadow: 0 5px 0 #222, 0 10px 5px rgba(0, 0, 0, 0.5);
+    transform: scale(1); /* Scale the entire board */
+    transform-origin: center; /* Keep the scaling centered */
 }
 
 /* Individual cell styles */
 .cell {
-    width: 50px;
-    height: 50px;
-    image-rendering: pixelated; /* Pixel art effect */
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5); /* Adds depth to individual cells */
+    width: 80px; /* Match cell size */
+    height: 80px; /* Match cell size */
+    position: relative;
 }
 
+/* Alternate cell colors */
 .cell:nth-child(even) {
     background-color: #000; /* Black squares */
 }
@@ -78,9 +69,16 @@ header h1 {
     background-color: #fff; /* White squares */
 }
 
-/* Footer styling */
-footer p {
-    font-size: 2.5rem;
-    color: #151515;
-    margin-top: 50px;
+/* Chess piece styles */
+.chess-piece {
+    width: 100%; /* Fit the cell */
+    height: 100%; /* Fit the cell */
+    object-fit: contain; /* Maintain aspect ratio */
+    image-rendering: pixelated; /* Ensure pixelated look */
+}
+
+
+/* Highlight possible moves */
+.highlight {
+    border: 2px solid rgba(0, 255, 0, 1); /* Optional border for clarity */
 }
