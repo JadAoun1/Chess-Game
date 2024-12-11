@@ -5,11 +5,19 @@ export function validateMove(fromRow, fromCol, toRow, toCol, piece) {
     switch (piece) {
         case 'pawn':
             // White pawns move upwards (decreasing row number)
-            return toRow === fromRow - 1 && fromCol === toCol;
+            if (fromCol === toCol) {
+                if (toRow === fromRow - 1) return true; // Single step
+                if (fromRow === 6 && toRow === fromRow - 2) return true; // First move two steps
+            }
+            return false;
 
         case 'pawnb':
             // Black pawns move downwards (increasing row number)
-            return toRow === fromRow + 1 && fromCol === toCol;
+            if (fromCol === toCol) {
+                if (toRow === fromRow + 1) return true; // Single step
+                if (fromRow === 1 && toRow === fromRow + 2) return true; // First move two steps
+            }
+            return false;
 
         case 'rook':
         case 'rookb':
@@ -35,6 +43,3 @@ export function validateMove(fromRow, fromCol, toRow, toCol, piece) {
             return false;
     }
 }
-
-
-

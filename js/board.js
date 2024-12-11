@@ -1,40 +1,39 @@
-import { enableDragAndDrop, selectPiece, movePiece, clearHighlights } from './interactions.js';
+import { enableDragAndDrop, selectPiece, movePiece } from './interactions.js';
 
 export function renderBoard(boardState, pieceImages) {
     const chessboard = document.querySelector('.chessboard');
-    chessboard.innerHTML = '';
+    chessboard.innerHTML = ''; // Clear the board
 
-    for (let row = 0; row < 8; row++) {
-        for (let col = 0; col < 8; col++) {
+    boardState.forEach((rowArray, row) => {
+        rowArray.forEach((piece, col) => {
             const cell = document.createElement('div');
-            cell.classList.add('cell');
+            cell.className = 'cell';
+            cell.style.backgroundColor = (row + col) % 2 === 0 ? '#fff' : '#000';
             cell.dataset.row = row;
             cell.dataset.col = col;
-            cell.style.backgroundColor = (row + col) % 2 === 0 ? '#fff' : '#000';
 
-            const piece = boardState[row][col];
             if (piece) {
                 const pieceElement = document.createElement('img');
                 pieceElement.src = pieceImages[piece];
                 pieceElement.alt = piece;
-                pieceElement.classList.add('chess-piece');
-                pieceElement.addEventListener('click', () => selectPiece(row, col, piece, boardState));
+                pieceElement.className = 'chess-piece';
+                pieceElement.addEventListener('click', () => {
+                    selectPiece(row, col, piece, boardState, updatedBoard => {
+                        renderBoard(updatedBoard, pieceImages);
+                    });
+                });
                 cell.appendChild(pieceElement);
             }
 
-            // Pass a callback that includes pieceImages
-            cell.addEventListener('click', () =>
+            cell.addEventListener('click', () => {
                 movePiece(row, col, boardState, updatedBoard => {
                     renderBoard(updatedBoard, pieceImages);
-                }, clearHighlights)
-            );
+                });
+            });
 
             chessboard.appendChild(cell);
-        }
-    }
-
-    // Reapply drag-and-drop with a callback that includes pieceImages
-    enableDragAndDrop(boardState, updatedBoard => {
-        renderBoard(updatedBoard, pieceImages);
+        });
     });
+
+    enableDragAndDrop(boardState, updatedBoard => renderBoard(updatedBoard, pieceImages));
 }
