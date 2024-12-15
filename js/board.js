@@ -1,6 +1,7 @@
 import { enableDragAndDrop, selectPiece, movePiece } from './interactions.js';
 
 export function renderBoard(boardState, pieceImages) {
+    console.log('Rendering board...');
     const chessboard = document.querySelector('.chessboard');
     chessboard.innerHTML = ''; // Clear the board
 
