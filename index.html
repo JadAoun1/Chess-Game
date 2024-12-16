@@ -31,8 +31,14 @@
   <script>
     // Add event listener to the "Play vs AI" button
     document.getElementById('play-vs-ai').addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent default behavior (e.g., navigating to #)
+      event.preventDefault(); 
       window.location.href = 'game.html'; // Navigate to game.html
+    });
+
+    // Add event listener to the "Learn Chess" button
+    document.getElementById('learn-chess').addEventListener('click', function (event) {
+      event.preventDefault(); 
+      window.location.href = 'rules.html'; // Navigate to rules.html
     });
   </script>
 </body>
