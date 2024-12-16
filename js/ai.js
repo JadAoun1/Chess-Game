@@ -137,7 +137,7 @@ function makeEasyAIMove(boardState, moves) {
 function makeMediumAIMove(boardState, moves) {
     // Identify moves that capture an opponent's piece.
     const capturingMoves = moves.filter(move => boardState[move.toRow][move.toCol] !== '');
-    
+
     // If there are capturing moves, pick one of them at random; otherwise pick a random move.
     const chosenMove = (capturingMoves.length > 0)
         ? capturingMoves[Math.floor(Math.random() * capturingMoves.length)]
@@ -167,10 +167,10 @@ function makeHardAIMove(boardState, moves) {
 
     // Define the "center" squares to move towards.
     const centerSquares = [
-        {r: 3, c: 3},
-        {r: 3, c: 4},
-        {r: 4, c: 3},
-        {r: 4, c: 4}
+        { r: 3, c: 3 },
+        { r: 3, c: 4 },
+        { r: 4, c: 3 },
+        { r: 4, c: 4 }
     ];
 
     // Sort moves by their distance to the center, and pick the one closest to the center.
@@ -199,7 +199,7 @@ function getMinDistanceToCenter(row, col, centers) {
     let minDist = Infinity;
 
     // Calculate the Manhattan distance to each center square and track the minimum.
-    for (const {r, c} of centers) {
+    for (const { r, c } of centers) {
         const dist = Math.abs(row - r) + Math.abs(col - c);
         if (dist < minDist) {
             minDist = dist;

@@ -6,19 +6,25 @@
   <title>Galactic Chess</title>
   <link rel="stylesheet" href="css/game.css"/>
 </head>
-
 <body>
   <div class="container">
+    <!-- Scoreboard on the left side -->
+    <aside class="scoreboard-container">
+      <div class="black-score-container">
+        Black Score: <span id="black-score">0</span>
+      </div>
+      <div class="white-score-container">
+        White Score: <span id="white-score">0</span>
+      </div>
+    </aside>
+
     <main>
       <!-- Game Controls Container -->
       <div class="game-controls">
         <div class="ai-difficulty-selector">
-          <label for="ai-difficulty">AI Difficulty:</label>
-          <select id="ai-difficulty" name="ai-difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
+          <button id="easy" class="difficulty-button" data-difficulty="easy">Easy</button>
+          <button id="medium" class="difficulty-button" data-difficulty="medium">Medium</button>
+          <button id="hard" class="difficulty-button" data-difficulty="hard">Hard</button>
         </div>
       </div>
 
@@ -38,15 +44,30 @@
   <script type="module">
     import { setAIDifficulty } from '../js/interactions.js';
 
-    const difficultySelect = document.getElementById('ai-difficulty');
-    // Set initial difficulty
-    setAIDifficulty(difficultySelect.value);
+    const buttons = document.querySelectorAll('.difficulty-button');
 
-    // Update difficulty when user changes selection
-    difficultySelect.addEventListener('change', () => {
-      setAIDifficulty(difficultySelect.value);
-      console.log(`AI difficulty set to ${difficultySelect.value}`);
+    // Function to set the active difficulty
+    function updateDifficulty(difficulty) {
+        buttons.forEach(button => {
+            if (button.dataset.difficulty === difficulty) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+        setAIDifficulty(difficulty);
+        console.log(`AI difficulty set to ${difficulty}`);
+    }
+
+    // Add event listeners to all buttons
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        updateDifficulty(button.dataset.difficulty);
+      });
     });
+
+    // Set default difficulty
+    updateDifficulty('easy');
   </script>
 </body>
 </html>

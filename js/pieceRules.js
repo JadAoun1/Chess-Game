@@ -73,6 +73,9 @@ export function validateMove(fromRow, fromCol, toRow, toCol, piece, boardState) 
 
             return false;
 
+
+            
+
         case 'rook':
         case 'rookb':
             // Rooks move any number of squares along a row or column
@@ -223,4 +226,4 @@ export function getPieceColor(piece) {
     if (!piece) return null; 
     // Pieces ending with 'b' are black, otherwise they are white
     return piece.endsWith('b') ? 'black' : 'white';
-}
+} 

@@ -17,6 +17,25 @@ let kingInCheck = false;
 // Global AI difficulty level
 let aiDifficulty = 'easy'; // Options: 'easy', 'medium', 'hard'
 
+// Global score trackers
+let whiteScore = 0;
+let blackScore = 0;
+
+// Map piece names to their point values.
+const pieceValues = {
+    'pawn': 1,
+    'pawnb': 1,
+    'knight': 3,
+    'knightb': 3,
+    'bishop': 3,
+    'bishopb': 3,
+    'rook': 5,
+    'rookb': 5,
+    'queen': 9,
+    'queenb': 9
+};
+
+
 // Function to allow external code to set the AI difficulty
 export function setAIDifficulty(difficulty) {
     aiDifficulty = difficulty;
@@ -26,7 +45,7 @@ export function setAIDifficulty(difficulty) {
 export function highlightMoves(row, col, piece, boardState) {
     // First clear all existing highlights
     clearHighlights();
-    
+
     // For every cell in the board, check if the move is valid
     // If valid, highlight that cell to indicate it's a possible move
     document.querySelectorAll('.cell').forEach(cell => {
@@ -68,8 +87,8 @@ function canKingMove(color, boardState) {
     // The king can move one step in any of the 8 directions around it
     const directions = [
         [-1, -1], [-1, 0], [-1, 1],
-        [0, -1],           [0, 1],
-        [1, -1],  [1, 0],  [1, 1]
+        [0, -1], [0, 1],
+        [1, -1], [1, 0], [1, 1]
     ];
 
     // Check each possible move. If any is valid, the king can move
@@ -136,27 +155,66 @@ export function selectPiece(row, col, piece, boardState, renderCallback) {
 export function movePiece(toRow, toCol, boardState, renderCallback) {
     const targetCell = document.querySelector(`.cell[data-row="${toRow}"][data-col="${toCol}"]`);
 
-    // Proceed only if we have a selected piece and the move is highlighted as valid
     if (selectedPiece && targetCell.classList.contains('highlight')) {
-        // Check if there's a piece on the target cell (capture scenario)
-        const capturedPiece = boardState[toRow][toCol];
+        // Create a copy of the boardState to simulate the move
+        const simulatedBoard = boardState.map(row => [...row]);
+
+        // Simulate the move
+        const capturedPiece = simulatedBoard[toRow][toCol];
+        simulatedBoard[toRow][toCol] = selectedPiece;
+        simulatedBoard[fromRow][fromCol] = '';
+
+        // Check if this move leaves the king in check
+        if (isKingInCheck(currentPlayer, simulatedBoard, validateMove)) {
+            // If king still in check, disallow the move
+            console.log("Move not allowed as it would leave the king in check");
+            return;
+        }
+
+        // If safe, update the real boardState
         if (capturedPiece) {
             handleCapture(capturedPiece, selectedPiece);
         }
 
-        // Update board state: move selected piece and clear old position
         boardState[toRow][toCol] = selectedPiece;
         boardState[fromRow][fromCol] = '';
 
-        // Finalize the move (switch turn, check for check, possibly trigger AI move, etc.)
+        // Finalize the move
         finalizeMove(boardState, renderCallback);
     }
 }
 
-// Handle the capture of a piece
+
+// Update the on-screen scoreboard
+function updateScoreboard() {
+    const whiteScoreElement = document.getElementById('white-score');
+    const blackScoreElement = document.getElementById('black-score');
+
+    if (whiteScoreElement) whiteScoreElement.textContent = whiteScore.toString();
+    if (blackScoreElement) blackScoreElement.textContent = blackScore.toString();
+}
+
+// Handle the capture of a piece (with scoring)
 function handleCapture(capturedPiece, capturingPiece) {
     console.log(`${capturingPiece} captured ${capturedPiece}`);
-    // Additional logic for scoring or other effects could go here.
+
+    // Determine which player captured the piece
+    const capturingColor = getPieceColor(capturingPiece); // 'white' or 'black'
+    const normalizedCapturedName = capturedPiece.toLowerCase();
+
+    // If the captured piece has a defined value, update the score
+    if (pieceValues.hasOwnProperty(normalizedCapturedName)) {
+        const points = pieceValues[normalizedCapturedName];
+
+        if (capturingColor === 'white') {
+            whiteScore += points;
+        } else {
+            blackScore += points;
+        }
+
+        // Update the scoreboard in the UI
+        updateScoreboard();
+    }
 }
 
 // Enable drag-and-drop functionality for pieces
@@ -209,7 +267,7 @@ export function enableDragAndDrop(boardState, renderCallback) {
 
                 // Check if the move is valid (highlighted) and belongs to the current player
                 if (selectedPiece && cell.classList.contains('highlight') && getPieceColor(selectedPiece) === currentPlayer) {
-                    
+
                     // If king in check and the piece is not the king, no move allowed
                     if (kingInCheck && !selectedPiece.toLowerCase().includes('king')) {
                         return;
@@ -314,8 +372,30 @@ function checkWinCondition(boardState) {
     return null;
 }
 
-// Reset the game (implementation depends on the specific requirements)
-// For now, just a placeholder function
-function resetGame() {
-    // Implement game reset logic if desired
+// Initialize the scoreboard UI
+export function initializeScoreboard() {
+    // Create scoreboard elements (if your HTML doesn't have them)
+    const scoreboardContainer = document.createElement('div');
+    scoreboardContainer.id = 'scoreboard';
+    scoreboardContainer.style.marginBottom = '10px';
+
+    const whiteScoreLabel = document.createElement('div');
+    whiteScoreLabel.textContent = 'White Score: ';
+    const whiteScoreValue = document.createElement('span');
+    whiteScoreValue.id = 'white-score';
+    whiteScoreValue.textContent = whiteScore.toString();
+    whiteScoreLabel.appendChild(whiteScoreValue);
+
+    const blackScoreLabel = document.createElement('div');
+    blackScoreLabel.textContent = 'Black Score: ';
+    const blackScoreValue = document.createElement('span');
+    blackScoreValue.id = 'black-score';
+    blackScoreValue.textContent = blackScore.toString();
+    blackScoreLabel.appendChild(blackScoreValue);
+
+    scoreboardContainer.appendChild(whiteScoreLabel);
+    scoreboardContainer.appendChild(blackScoreLabel);
+
+    document.body.appendChild(scoreboardContainer);
 }
+
