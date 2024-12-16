@@ -1,5 +1,5 @@
 import { renderBoard } from './board.js';
-import { selectPiece, movePiece, highlightMoves, clearHighlights } from './interactions.js';
+import { selectPiece, movePiece } from './interactions.js';
 
 const pieceImages = {
     'pawn': 'assets/images/pawn.png',
@@ -16,6 +16,7 @@ const pieceImages = {
     'kingb': 'assets/images/kingb.png',
 };
 
+let currentTurn = 'White';
 
 const boardState = [
     ['rookb', 'knightb', 'bishopb', 'queenb', 'kingb', 'bishopb', 'knightb', 'rookb'],
@@ -28,5 +29,5 @@ const boardState = [
     ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'],
 ];
 
-// Initial render
-renderBoard(boardState, pieceImages);
+// Render the board with the initial state and turn
+renderBoard(boardState, pieceImages, currentTurn);

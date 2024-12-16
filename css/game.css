@@ -22,14 +22,43 @@ body {
     text-align: center;
 }
 
+/* Game controls styling */
+.game-controls {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-difficulty-selector {
+    font-size: 1.2em; /* Adjust size if desired */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-difficulty-selector label {
+    font-family: inherit;
+    color: #fff;
+}
+
+.ai-difficulty-selector select {
+    font-family: inherit;
+    color: #000;
+    background: #fff;
+    padding: 4px 8px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 /* Game wrapper with retro glow */
 .game-wrapper {
     background: rgba(0, 0, 0, 0.4);
     padding: 20px;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    justify-content: center;
+    align-items: center;
     min-width: 500px;
     min-height: 500px;
     border: 4px solid transparent;
@@ -44,41 +73,44 @@ body {
 /* Chessboard styles */
 .chessboard {
     display: grid;
-    grid-template-columns: repeat(8, 80px); /* Increase cell size */
-    grid-template-rows: repeat(8, 80px); /* Increase cell size */
+    grid-template-columns: repeat(8, 80px);
+    grid-template-rows: repeat(8, 80px);
     gap: 0;
     border: 4px solid white;
     box-shadow: 0 5px 0 #222, 0 10px 5px rgba(0, 0, 0, 0.5);
-    transform: scale(1); /* Scale the entire board */
-    transform-origin: center; /* Keep the scaling centered */
+    transform: scale(1);
+    transform-origin: center;
 }
 
 /* Individual cell styles */
 .cell {
-    width: 80px; /* Match cell size */
-    height: 80px; /* Match cell size */
+    width: 80px;
+    height: 80px;
     position: relative;
 }
 
-/* Alternate cell colors */
 .cell:nth-child(even) {
-    background-color: #000; /* Black squares */
+    background-color: #000;
 }
 
 .cell:nth-child(odd) {
-    background-color: #fff; /* White squares */
+    background-color: #fff;
 }
 
 /* Chess piece styles */
 .chess-piece {
-    width: 100%; /* Fit the cell */
-    height: 100%; /* Fit the cell */
-    object-fit: contain; /* Maintain aspect ratio */
-    image-rendering: pixelated; /* Ensure pixelated look */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
 }
-
 
 /* Highlight possible moves */
 .highlight {
-    border: 2px solid rgba(0, 255, 0, 1); /* Optional border for clarity */
+    border: 2px solid rgba(0, 255, 0, 1);
+}
+
+.king-check {
+    outline: 2px solid red;
+    box-sizing: border-box;
 }

@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Galactic Chess</title>
-  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/game.css"/>
 </head>
 
 <body>
   <div class="container">
     <main>
-      <div class="game-wrapper">
-        <div class="chessboard">
+      <!-- Game Controls Container -->
+      <div class="game-controls">
+        <div class="ai-difficulty-selector">
+          <label for="ai-difficulty">AI Difficulty:</label>
+          <select id="ai-difficulty" name="ai-difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
         </div>
+      </div>
+
+      <div class="game-wrapper">
+        <div class="chessboard"></div>
       </div>
     </main>
   </div>
+
+  <!-- Scripts -->
   <script src="../js/board.js" type="module"></script>
   <script src="../js/pieceRules.js" type="module"></script>
   <script src="../js/interactions.js" type="module"></script>
   <script src="../js/game.js" type="module"></script>
-</body>
+  <script src="./ai.js" type="module"></script>
 
+  <script type="module">
+    import { setAIDifficulty } from '../js/interactions.js';
+
+    const difficultySelect = document.getElementById('ai-difficulty');
+    // Set initial difficulty
+    setAIDifficulty(difficultySelect.value);
+
+    // Update difficulty when user changes selection
+    difficultySelect.addEventListener('change', () => {
+      setAIDifficulty(difficultySelect.value);
+      console.log(`AI difficulty set to ${difficultySelect.value}`);
+    });
+  </script>
+</body>
 </html>
