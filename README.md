@@ -3,6 +3,8 @@
 
 ### Description
 
+---
+
 This is a browser-based chess game with a retro, pixel-themed interface. It supports player-versus-AI mode and includes win/loss logic to determine the outcome of the game.  
 ---
 
