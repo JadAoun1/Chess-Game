@@ -28,9 +28,11 @@ body {
 .scoreboard-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Place black score at top and white score at bottom */
+    justify-content: space-between;
+    /* Place black score at top and white score at bottom */
     margin-right: 20px;
-    height: 640px; /* Match the chessboard height (8 rows * 80px) */
+    height: 640px;
+    /* Match the chessboard height (8 rows * 80px) */
 }
 
 .black-score-container,
@@ -42,13 +44,15 @@ body {
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 1.2em;
-    font-family: 'SpacerunnerGreen', sans-serif; /* Use SpacerunnerGreen font */
+    font-family: 'SpacerunnerGreen', sans-serif;
+    /* Use SpacerunnerGreen font */
     /* Removed margin-bottom to utilize space-between */
 }
 
 /* The main area to the right of the scores */
 main {
-    flex: 1; /* Take remaining space */
+    flex: 1;
+    /* Take remaining space */
 }
 
 /* Game controls styling */
@@ -60,7 +64,8 @@ main {
 }
 
 .ai-difficulty-selector {
-    font-size: 1.2em; /* Adjust size if desired */
+    font-size: 1.2em;
+    /* Adjust size if desired */
     display: flex;
     align-items: center;
     gap: 8px;
@@ -97,7 +102,8 @@ main {
         0 0 32px #006eff,
         0 0 64px #003cff;
     text-align: center;
-    position: relative; /* Ensure positioning context for child elements */
+    position: relative;
+    /* Ensure positioning context for child elements */
 }
 
 /* Chessboard styles */
@@ -111,7 +117,8 @@ main {
     transform: scale(1);
     transform-origin: center;
     position: relative;
-    z-index: 1; /* Ensure it's beneath the overlay */
+    z-index: 1;
+    /* Ensure it's beneath the overlay */
 }
 
 /* Individual cell styles */
@@ -180,3 +187,19 @@ main {
     border-color: #4CAF50;
 }
 
+
+.notifications {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    font-family: 'SpacerunnerGreen', sans-serif;
+    font-size: 1.5em;
+    display: none; /* Initially hidden */
+}

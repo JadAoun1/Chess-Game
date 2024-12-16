@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Galactic Chess</title>
-  <link rel="stylesheet" href="css/game.css"/>
+  <link rel="stylesheet" href="css/game.css" />
 </head>
+
 <body>
   <div class="container">
     <!-- Scoreboard on the left side -->
@@ -30,6 +32,9 @@
 
       <div class="game-wrapper">
         <div class="chessboard"></div>
+
+        <div id="game-notifications" class="notifications"></div>
+
       </div>
     </main>
   </div>
@@ -48,15 +53,15 @@
 
     // Function to set the active difficulty
     function updateDifficulty(difficulty) {
-        buttons.forEach(button => {
-            if (button.dataset.difficulty === difficulty) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
-            }
-        });
-        setAIDifficulty(difficulty);
-        console.log(`AI difficulty set to ${difficulty}`);
+      buttons.forEach(button => {
+        if (button.dataset.difficulty === difficulty) {
+          button.classList.add('active');
+        } else {
+          button.classList.remove('active');
+        }
+      });
+      setAIDifficulty(difficulty);
+      console.log(`AI difficulty set to ${difficulty}`);
     }
 
     // Add event listeners to all buttons
@@ -70,4 +75,5 @@
     updateDifficulty('easy');
   </script>
 </body>
+
 </html>

@@ -9,7 +9,7 @@ import { enableDragAndDrop, selectPiece, movePiece } from './interactions.js';
 export function renderBoard(boardState, pieceImages, handleCapture) {
     // Select the chessboard container from the DOM
     const chessboard = document.querySelector('.chessboard');
-    
+
     // Clear any existing HTML elements inside the chessboard to start fresh
     chessboard.innerHTML = '';
 
@@ -39,10 +39,10 @@ export function renderBoard(boardState, pieceImages, handleCapture) {
                 // selectPiece can update the board state, and then we re-render
                 pieceElement.addEventListener('click', () => {
                     selectPiece(
-                        row, 
-                        col, 
-                        piece, 
-                        boardState, 
+                        row,
+                        col,
+                        piece,
+                        boardState,
                         updatedBoard => renderBoard(updatedBoard, pieceImages, handleCapture)
                     );
                 });
@@ -54,9 +54,9 @@ export function renderBoard(boardState, pieceImages, handleCapture) {
             // If the cell (not just the piece) is clicked, attempt to move a previously selected piece here
             cell.addEventListener('click', () => {
                 movePiece(
-                    row, 
-                    col, 
-                    boardState, 
+                    row,
+                    col,
+                    boardState,
                     updatedBoard => renderBoard(updatedBoard, pieceImages, handleCapture)
                 );
             });
@@ -68,7 +68,7 @@ export function renderBoard(boardState, pieceImages, handleCapture) {
 
     // After all cells are rendered, enable drag-and-drop functionality for the pieces
     enableDragAndDrop(
-        boardState, 
+        boardState,
         updatedBoard => renderBoard(updatedBoard, pieceImages, handleCapture)
     );
 }

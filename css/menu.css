@@ -49,7 +49,7 @@ header h1 {
 .menu {
     display: flex;
     padding: 10px 20px;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 .menu a {

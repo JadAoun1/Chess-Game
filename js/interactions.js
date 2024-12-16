@@ -291,6 +291,19 @@ export function enableDragAndDrop(boardState, renderCallback) {
     });
 }
 
+
+function showNotification(message, duration = 3000) {
+    const notification = document.getElementById('game-notifications');
+    notification.textContent = message;
+    notification.style.display = 'block';
+
+    // Automatically hide after `duration` milliseconds
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, duration);
+}
+
+
 // Finalize the move:
 // - Clear highlights
 // - Switch turns
@@ -312,10 +325,11 @@ function finalizeMove(boardState, renderCallback) {
     // Check if the game ended (no kings means someone won)
     const winner = checkWinCondition(boardState);
     if (winner) {
-        alert(`${winner} wins!`);
+        showNotification(`${winner} wins!`);
         resetGame(); // Optionally reset the game
         return;
     }
+
 
     // Re-render the board to reflect the new move
     renderCallback(boardState);
@@ -324,21 +338,22 @@ function finalizeMove(boardState, renderCallback) {
     kingInCheck = isKingInCheck(currentPlayer, boardState, validateMove);
 
     if (kingInCheck) {
-        // Highlight the king cell if it's in check
         const kingPos = getKingPosition(currentPlayer, boardState);
         if (kingPos) {
             highlightKingCell(kingPos.row, kingPos.col);
 
-            // Check if the king can move. If not, it's checkmate.
             const kingCanMove = canKingMove(currentPlayer, boardState);
             if (!kingCanMove) {
                 const checkmateWinner = (currentPlayer === 'white') ? 'Black' : 'White';
-                alert(`Checkmate! ${checkmateWinner} wins!`);
+                showNotification(`Checkmate! ${checkmateWinner} wins!`);
                 resetGame();
                 return;
+            } else {
+                showNotification(`${currentPlayer} King is in check!`);
             }
         }
     }
+
 
     // If it is the AI's turn (black), let the AI make a move after a short delay
     if (currentPlayer === 'black') {
