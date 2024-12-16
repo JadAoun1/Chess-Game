@@ -166,8 +166,6 @@ export function movePiece(toRow, toCol, boardState, renderCallback) {
 
         // Check if this move leaves the king in check
         if (isKingInCheck(currentPlayer, simulatedBoard, validateMove)) {
-            // If king still in check, disallow the move
-            console.log("Move not allowed as it would leave the king in check");
             return;
         }
 
@@ -196,7 +194,6 @@ function updateScoreboard() {
 
 // Handle the capture of a piece (with scoring)
 function handleCapture(capturedPiece, capturingPiece) {
-    console.log(`${capturingPiece} captured ${capturedPiece}`);
 
     // Determine which player captured the piece
     const capturingColor = getPieceColor(capturingPiece); // 'white' or 'black'
