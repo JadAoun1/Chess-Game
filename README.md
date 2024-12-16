@@ -30,7 +30,7 @@ The game renders dynamically using the DOM and allows users to make valid chess 
      ```bash
      git clone <https://github.com/JadAoun1/Chess-Game>
      ```
-   - Open `index.html` in a browser to start the game or download the Live Serveer extension and select "Go Live".
+   - Open `index.html` in a browser to start the game or download the Live Server extension and select "Go Live".
 
 ---
 
