@@ -1,11 +1,10 @@
 
-## Chess Game
+## Chess Wars
 
 ### Description
-This is a browser-based chess game with a retro, pixel-themed interface. It supports player-versus-AI mode and includes win/loss logic to determine the outcome of the game.  
 
-The game renders dynamically using the DOM and allows users to make valid chess moves, showcasing standard chess rules.
 
+#### This is a browser-based chess game with a retro, pixel-themed interface. It supports player-versus-AI mode and includes win/loss logic to determine the outcome of the game.  
 ---
 
 ### Screenshot
@@ -30,7 +29,7 @@ The game renders dynamically using the DOM and allows users to make valid chess 
      ```bash
      git clone <https://github.com/JadAoun1/Chess-Game>
      ```
-   - Open `index.html` in a browser to start the game or download the Live Serveer extension and select "Go Live".
+   - Open `index.html` in a browser to start the game or download the Live Server extension and select "Go Live".
 
 ---
 
