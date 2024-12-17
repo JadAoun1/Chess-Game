@@ -110,6 +110,18 @@ function applyMove(boardState, move) {
     return newBoardState;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * AI "easy" move: just pick a random valid move.
  * 
@@ -184,6 +196,20 @@ function makeHardAIMove(boardState, moves) {
     const bestMove = movesSortedByCenterDistance[0];
     return applyMove(boardState, bestMove);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Compute the minimum Manhattan distance from a given square to any of the center squares.
