@@ -9,7 +9,7 @@
 
 ### Screenshot
 
-![Game Screenshot](assets/images/chess-game-screenshot.png)
+![Game Screenshot](assets/images/Chess Wars Checkmate.png)
 
 ---
 
